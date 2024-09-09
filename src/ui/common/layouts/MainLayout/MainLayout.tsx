@@ -9,7 +9,7 @@ type Props = {
 export const MainLayout = ({ children }: Props) => {
   return (
     <main className="xl:mx-auto min-h-screen">
-      <section className="flex-1 flex flex-col">
+      <section className="flex flex-col">
         <MainNavigation />
         {children}
         <MainFooter />

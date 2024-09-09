@@ -1,3 +1,14 @@
+"use client";
+
+import React from "react";
+import { LocationSection } from "./sections/LocationSection";
+import { FollowUsSection } from "./sections/FollowUsSection";
+
 export default function MainFooter() {
-  return <>Footer</>;
+  return (
+    <footer className="flex flex-col w-screen">
+      <LocationSection />
+      <FollowUsSection />
+    </footer>
+  );
 }
