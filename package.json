@@ -1,0 +1,71 @@
+{
+  "name": "CEOs-v2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:reset": "npx prisma migrate reset --force",
+    "db:seed": "npx prisma db push && npx tsx ./src/database/seeders/index.ts"
+  },
+  "prisma": {
+    "schema": "src/database/models/schema.prisma"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.0.0",
+    "@hookform/resolvers": "^3.9.0",
+    "@next-auth/prisma-adapter": "^1.0.7",
+    "@next/env": "^14.2.5",
+    "@prisma/client": "5.18.0",
+    "@types/react-lazyload": "^3.2.3",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "firebase": "^10.13.0",
+    "formik": "^2.4.6",
+    "framer-motion": "^11.3.28",
+    "inversify": "^6.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "keen-slider": "^6.8.6",
+    "next": "14.2.5",
+    "next-auth": "^4.24.7",
+    "nodemailer": "^6.9.14",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.8.2",
+    "prisma": "^5.18.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-email": "^2.1.6",
+    "react-lazyload": "^3.2.1",
+    "reflect-metadata": "^0.2.2",
+    "styled-components": "^6.1.12",
+    "tailwind-merge": "^2.5.2",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.15",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/react-slick": "^0.23.13",
+    "@types/reflect-metadata": "^0.1.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "next lint --fix"
+    ]
+  }
+}

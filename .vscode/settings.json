@@ -1,0 +1,25 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+},
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.run": "onType",
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "editor.detectIndentation": false,
+  "editor.wordWrap": "on",
+"editor.formatOnSave": true,
+// "WillLuke.nextjs.addTypesOnSave": true,
+"WillLuke.nextjs.hasPrompted": true,
+}
