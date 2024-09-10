@@ -1,21 +1,25 @@
 import * as z from 'zod';
 
-export const userSchema = z.object({
+export const userSignupStepOneSchema = z.object({
   lastName: z.string({
     required_error: 'Le nom est requis.'
-  }).max(50, 'Le nom ne doit pas dépasser 50 caractères.'),
+  }).min(1,'Le nom est requis.').max(50, 'Le nom ne doit pas dépasser 50 caractères.'),
   
   firstName: z.string({
     required_error: 'Le prénom est requis.'
-  }).max(50, 'Le prénom ne doit pas dépasser 50 caractères.'),
+  }).min(1,'Le prénom est requis.').max(50, 'Le prénom ne doit pas dépasser 50 caractères.'),
+
+  postCode: z.string().regex(/^\d{5}$/, {
+    message: "Le code postal doit contenir exactement 5 chiffres.",
+  }),
   
   country: z.string({
     required_error: 'Le pays est requis.'
-  }),
+  }).min(1,'Le pays est requis.'),
   
   city: z.string({
     required_error: 'La ville est requise.'
-  }),
+  }).min(1,'La ville est requise.'),
   
   email: z.string({
     required_error: 'L\'adresse e-mail est requise.'
@@ -23,7 +27,7 @@ export const userSchema = z.object({
   
   phoneNumber: z.string({
     required_error: 'Le numéro de téléphone est requis.'
-  }),
+  }).min(1,'Le numéro de téléphone est requis.'),
   
   linkedInUrl: z.string({
     required_error: 'L\'URL LinkedIn est requise.'
@@ -31,7 +35,46 @@ export const userSchema = z.object({
   
   jobTitle: z.string({
     required_error: 'Le poste est requis.'
+  }).min(1,'Le poste est requis.'),
+  
+})
+
+export const userSchema = z.object({
+  lastName: z.string({
+    required_error: 'Le nom est requis.'
+  }).min(1,'Le nom est requis.').max(50, 'Le nom ne doit pas dépasser 50 caractères.'),
+  
+  firstName: z.string({
+    required_error: 'Le prénom est requis.'
+  }).min(1,'Le prénom est requis.').max(50, 'Le prénom ne doit pas dépasser 50 caractères.'),
+
+  postCode: z.string().regex(/^\d{5}$/, {
+    message: "Le code postal doit contenir exactement 5 chiffres.",
   }),
+  
+  country: z.string({
+    required_error: 'Le pays est requis.'
+  }).min(1,'Le pays est requis.'),
+  
+  city: z.string({
+    required_error: 'La ville est requise.'
+  }).min(1,'La ville est requise.'),
+  
+  email: z.string({
+    required_error: 'L\'adresse e-mail est requise.'
+  }).email('L\'adresse e-mail n\'est pas valide.'),
+  
+  phoneNumber: z.string({
+    required_error: 'Le numéro de téléphone est requis.'
+  }).min(1,'Le numéro de téléphone est requis.'),
+  
+  linkedInUrl: z.string({
+    required_error: 'L\'URL LinkedIn est requise.'
+  }).url('L\'URL LinkedIn est invalide.'),
+  
+  jobTitle: z.string({
+    required_error: 'Le poste est requis.'
+  }).min(1,'Le poste est requis.'),
   
   companyName: z.string({
     required_error: 'Le nom de l\'entreprise est requis.'

@@ -1,10 +1,6 @@
-import SigninForm from "./components/signinForm";
+// import SigninForm from "./components/signinForm";
 
 const SigninView = () => {
-  return (
-    <main>
-      <SigninForm />
-    </main>
-  );
+  return <main>{/* <SigninForm /> */}</main>;
 };
 export default SigninView;

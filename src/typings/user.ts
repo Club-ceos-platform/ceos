@@ -3,6 +3,7 @@ export type UserInput = {
   firstName: string;
   country: string;
   city: string;
+  postCode:string;
   email: string;
   phoneNumber: string;
   linkedInUrl: string;
