@@ -11,7 +11,7 @@ export const MainLayout = ({ children }: Props) => {
     <main className="xl:mx-auto min-h-screen">
       <section className="flex flex-col">
         <MainNavigation />
-        <div className="px-4">{children}</div>
+        <div>{children}</div>
         <MainFooter />
       </section>
     </main>

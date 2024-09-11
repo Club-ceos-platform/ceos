@@ -1,10 +1,6 @@
 import React from "react";
-import { Button } from "primereact/button";
+import HomeView from "@/ui/Home/homeView";
 
 export default function HomePage() {
-  return (
-    <div>
-      <Button label="Check" icon="pi pi-check" />
-    </div>
-  );
+  return <HomeView />;
 }

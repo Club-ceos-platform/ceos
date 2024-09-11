@@ -39,7 +39,7 @@ export const SignupFormStepOne = ({
         <h2 className="text-2xl md:text-4xl text-center font-bold text-blue-900">
           Informations personnelles
         </h2>
-        <p className="font-extralight text-sm text-gray-500 text-justify">
+        <p className="font-extralight text-sm text-gray-700 text-justify">
           Cette section contient vos informations personnelles, telles que votre
           nom, votre adresse, et d&apos;autres détails importants.
           <span className="text-blue-900">
