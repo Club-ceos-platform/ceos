@@ -28,7 +28,7 @@ const items: MenuItem[] = [
 export function SignupFormStepper({ activeIndex }: Props) {
   return (
     <>
-      <div className="card sticky top-[4rem] md:top-[7rem] bg-white bg-opacity-70 pb-4 pt-8 w-screen -ml-4 z-50">
+      <div className="card sticky top-[4rem] md:top-[7rem] bg-white bg-opacity-70 pb-4 pt-8 w-screen -ml-4 z-40">
         <Steps
           model={items}
           readOnly={true}

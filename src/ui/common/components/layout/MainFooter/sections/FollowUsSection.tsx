@@ -102,7 +102,9 @@ export function FollowUsSection() {
             <Image src="/book.png" alt="ebook" width={100} height={100} />
             <form className="flex flex-col w-full gap-4">
               <div className="flex flex-col items-start gap-2 w-full">
-                <label className="text-sm w-1/5">E-mail</label>
+                <label style={{ color: "white" }} className="text-sm w-1/5">
+                  E-mail
+                </label>
                 <InputText
                   type="text"
                   placeholder="Adresse E-mail"
@@ -111,7 +113,7 @@ export function FollowUsSection() {
               </div>
               <div className="flex align-items-center space-x-2">
                 <Checkbox checked={false} />
-                <label className="text-sm">
+                <label style={{ color: "white" }} className="text-sm">
                   J&apos;accepte d&apos;être recontacté à des fins commerciales
                 </label>
               </div>

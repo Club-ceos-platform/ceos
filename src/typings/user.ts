@@ -12,9 +12,10 @@ export type UserInput = {
   commercialName: string;
   companyCountry: string;
   companyCity: string;
+  companyPostCode:string;
   companyWebsite: string;
   companyLinkedInPage: string;
   companyPhoneNumber: string;
   revenue: number;
-  revenueFile: string
+  revenueFileUrl: string
 };

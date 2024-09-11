@@ -18,7 +18,9 @@ export const SignupFormStepOne = ({
   setActiveIndex,
   setFormUserRegister,
 }: Props) => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedCountry, setSelectedCountry] = useState<string>(
+    formUserRegister.country || ""
+  );
 
   const countries = useMemo(() => Country.getAllCountries(), []);
 
@@ -279,7 +281,7 @@ export const SignupFormStepOne = ({
                 </div>
               </div>
 
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-between mt-6">
                 <Button
                   type="button"
                   label="Annuler"

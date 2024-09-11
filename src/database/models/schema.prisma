@@ -28,11 +28,12 @@ model User {
     commercialName      String
     companyCountry      String
     companyCity         String
+    companyPostCode     String
     companyWebsite      String
     companyLinkedInPage String
     companyPhoneNumber  String
     revenue             Float
-    revenueFile         String
+    revenueFileUrl      String
     isValidatedByAdmin  Boolean @default(false)
     paymentUrl          String
     password            String?

@@ -22,9 +22,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-label{
-    @apply text-blue-900 text-base
-}
 .p-field{
     @apply flex flex-col gap-1 w-full
 }
@@ -35,6 +32,10 @@ label{
 
 .p-steps-item .p-menuitem-icon{
     display: none;
+}
+
+#pr_id_3_3 .p-steps-current .p-menuitem-link{
+    background-color: #25c560;
 }
 
 
@@ -64,5 +65,8 @@ label{
         background-color: #06b6d4;
         color: white;
         border: 4px solid #e5e7eb;
+    }
+    #pr_id_3_3 .p-steps-current .p-menuitem-link{
+        background-color: #25c560;
     }
 }
