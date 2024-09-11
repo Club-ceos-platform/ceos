@@ -3,6 +3,7 @@ export type UserInput = {
   firstName: string;
   country: string;
   city: string;
+  postCode:string;
   email: string;
   phoneNumber: string;
   linkedInUrl: string;
@@ -11,9 +12,11 @@ export type UserInput = {
   commercialName: string;
   companyCountry: string;
   companyCity: string;
+  companyPostCode:string;
   companyWebsite: string;
   companyLinkedInPage: string;
   companyPhoneNumber: string;
   revenue: number;
-  revenueFile: string
+  paymentUrl:string;
+  revenueFileUrl: string
 };

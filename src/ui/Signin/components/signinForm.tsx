@@ -1,76 +1,87 @@
-"use client";
-
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import Link from "next/link";
 import { useSigninForm } from "./signinForm.hooks";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
 import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
-import { signinSchema } from "@/validators/auth.validator";
+import { authSchema } from "@/validators/auth.validation";
+import "./signinForm.modules.css";
 
 const SigninForm = () => {
-  const { onSubmit, success, error, isLoading } = useSigninForm();
   const toast = useRef<Toast>(null);
+  const { onSubmit, error, isLoading } = useSigninForm();
 
   useEffect(() => {
-    if (success) {
-      showToast("Success de connection", "success");
-    }
-  }, [success]);
-
-  useEffect(() => {
-    if (error) {
-      showToast(error, "error");
+    if (error && toast.current) {
+      toast.current.show({
+        severity: "error",
+        summary: "Erreur",
+        detail: error,
+        life: 5000,
+      });
     }
   }, [error]);
-
-  const showToast = (message: string, severity: "success" | "error") => {
-    if (toast.current) {
-      toast.current.show({ severity, summary: message, life: 3000 });
-    }
-  };
 
   return (
     <>
       <Toast ref={toast} />
       <Formik
-        initialValues={{ email: "", password: "" }}
-        validate={validateWithZod(signinSchema)}
-        onSubmit={(values) => {
-          onSubmit(values);
+        initialValues={{
+          email: "",
+          password: "",
         }}
+        validate={validateWithZod(authSchema)}
+        onSubmit={(values) => onSubmit(values)}
       >
-        {({ isSubmitting }) => (
-          <Form>
-            <div className="p-field">
-              <label htmlFor="email">Email</label>
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                className="p-inputtext p-component"
-              />
-              <ErrorMessage name="email" component="div" className="p-error" />
-            </div>
-            <div className="p-field">
-              <label htmlFor="password">Mot de passe</label>
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                className="p-inputtext p-component"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="p-error"
-              />
+        {({ errors }) => (
+          <Form className="flex flex-col gap-8 items-start w-full">
+            <div className="flex flex-col gap-4 items-start w-full">
+              <div className="p-field">
+                <label htmlFor="email">
+                  E-mail <span className="text-red-500">*</span>
+                </label>
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  className={`p-inputtext p-component ${
+                    errors.email && "border border-red-500"
+                  }`}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="p-error"
+                />
+              </div>
+              <div className="p-field">
+                <label htmlFor="email">
+                  Mot de passe <span className="text-red-500">*</span>
+                </label>
+                <Field
+                  id="password"
+                  name="password"
+                  type="password"
+                  className={`p-inputtext p-component ${
+                    errors.password && "border border-red-500"
+                  }`}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="p-error"
+                />
+              </div>
+              <Link href="/" className="text-blue-900 text-sm hover:underline">
+                Mot de passe oublier ?
+              </Link>
             </div>
             <Button
-              type="submit"
-              label={isLoading ? "Chargement..." : "Se connecter"}
-              icon={isLoading ? "pi pi-spin pi-spinner" : undefined}
-              disabled={isSubmitting || isLoading}
+              disabled={isLoading}
+              loading={isLoading}
+              className="w-full"
+              label="Se connecter"
             />
           </Form>
         )}

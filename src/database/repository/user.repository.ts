@@ -28,3 +28,9 @@ export async function deleteByUserId(userId:number):Promise<User>{
     where:{ id : userId}
   })
 }
+
+export async function findUnique(data:any):Promise<User | null>{
+  return ctx.prisma.user.findUnique({
+    where:data
+  })
+}

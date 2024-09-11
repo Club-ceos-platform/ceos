@@ -1,40 +1,37 @@
 import { useState } from "react";
-// import { useRouter } from "next/router";
-import { signin } from "@/services/auth/auth.service";
-import { SigninRequestData, SigninResponseData  } from "@/services/auth/auth.types"
+import { signIn } from "next-auth/react";
+import { AuthInput,AuthOutput } from "@/typings/auth";
 
 type UseSigninForm = {
-   onSubmit:(formData:SigninRequestData)=>void;
+   onSubmit:(formData:AuthInput)=>void;
    error:string | null;
    isLoading:boolean;
    success:boolean;
 }
 
 export const useSigninForm = ():UseSigninForm =>{
-  // const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const onSubmit = async (formData: SigninRequestData) => {
+  const onSubmit = async (formData: AuthInput) => {
     setIsLoading(true);
     setError(null);
     setSuccess(false);
 
     try {
-      const result: SigninResponseData = await signin(formData);
-      console.log(result);
-
-      if (result.token) {
-        localStorage.setItem('authToken', result.token);
-
-        setSuccess(true);
-        // router.push('/dashboard');
-      } else {
-        setError('Failed to sign in. Please check your credentials.');
+      const result: any = await signIn('credentials',{
+        email:formData.email,
+        password:formData.password,
+        redirect:false
+      });
+      if(!result.ok){
+        setError(result.error);
       }
+
+      window.location.reload();
     } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred.');
+      setError(err.message || "Une erreur inattendue s'est produite.");
     } finally {
       setIsLoading(false);
     }

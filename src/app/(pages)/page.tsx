@@ -1,3 +1,6 @@
+import React from "react";
+import HomeView from "@/ui/Home/homeView";
+
 export default function HomePage() {
-  return <div>HomePage1</div>;
+  return <HomeView />;
 }

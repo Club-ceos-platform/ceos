@@ -1,20 +1,8 @@
-import { DefaultSession } from "next-auth";
-import { Role } from '@prisma/client'
+import { User as PrismaUser } from "@prisma/client";
 
 declare module "next-auth" {
-  interface User {
-    id: number;
-    email: string;
-    name: string;
-    role: Role;
-  }
-  
+  interface User extends Omit<PrismaUser, 'password' | 'hasPaid' | 'isValidatedByAdmin'> {}
   interface Session {
-    user: {
-      id: number;
-      email: string;
-      name: string;
-      role: Role;
-    } & DefaultSession["user"];
+    user: User;
   }
 }
