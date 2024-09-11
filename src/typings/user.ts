@@ -17,5 +17,6 @@ export type UserInput = {
   companyLinkedInPage: string;
   companyPhoneNumber: string;
   revenue: number;
+  paymentUrl:string;
   revenueFileUrl: string
 };

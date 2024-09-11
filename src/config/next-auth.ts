@@ -1,60 +1,72 @@
-import CredentialsProvider from 'next-auth/providers/credentials';
-import bcrypt from 'bcryptjs';
-import { User as PrismaUser } from '@prisma/client';
-import { getContext } from '@/database/context';
-import { JWTToken } from '@/services/auth/auth.types';
-import { NextAuthOptions } from 'next-auth';
-import {PrismaAdapter} from '@next-auth/prisma-adapter'
-import { mapPrismaUserToJWT, mapJWTToSessionUser } from '@/services/auth/auth.mappers';
+import CredentialsProvider from "next-auth/providers/credentials";
+import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { getContext } from "@/database/context";
+import { compare } from "bcryptjs";
+import * as userRepository from "@/database/repository/user.repository";
 
 const { prisma } = getContext();
 
-export const authOptions: NextAuthOptions = {
+export const AuthOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_URL,
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "signin",
+  },
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'text' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: "email", type: "email", placeholder: "johnDoe@gmail.com" },
+        password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials) return null;
-
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user || !(await bcrypt.compare(credentials.password, user.password))) {
-          throw new Error('Invalid credentials');
+        if (!credentials) {
+          throw new Error("Une erreur est survenue lors de l'authentification. Veuillez réessayer.");
         }
 
-        return mapPrismaUserToJWT(user);
+        const existingUser = await userRepository.findUnique({
+          email: credentials.email,
+        });
+
+
+        if (!existingUser) {
+          throw new Error("Aucun utilisateur trouvé avec cette adresse e-mail. Veuillez vérifier vos informations.");
+        }
+        
+        if(!existingUser.isValidatedByAdmin){
+          throw new Error("Votre demande est en cours de validation par un administrateur. Veuillez patienter.");
+        }
+
+        if(!existingUser.hasPaid){
+          throw new Error("Le paiement des frais d'inscription est requis pour accéder à cette plateforme.");
+        }
+
+        const passwordMatch = await compare(credentials.password, existingUser.password as string);
+
+        if (!passwordMatch) {
+          throw new Error("Le mot de passe que vous avez entré est incorrect. Veuillez réessayer.");
+        }
+
+        const { hasPaid, password, isValidatedByAdmin, ...userWithoutSensitiveInfo } = existingUser;
+
+        return userWithoutSensitiveInfo as any;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return mapPrismaUserToJWT(user as PrismaUser);
+        token.user = user;
       }
-      return token as JWTToken;
+      return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user = mapJWTToSessionUser(token as JWTToken);
-      }
+      session.user = token.user as any;
       return session;
     },
   },
-  pages: {
-    signIn: '/auth/signin',
-    signOut: '/auth/signout',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request',
-  },
-  session: {
-    strategy: 'jwt',
-  },
-  adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_SECRET,
 };
