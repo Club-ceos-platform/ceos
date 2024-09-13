@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { AuthInput,AuthOutput } from "@/typings/auth";
+import { AuthInput } from "@/typings/auth";
 
 type UseSigninForm = {
    onSubmit:(formData:AuthInput)=>void;
-   error:string | null;
    isLoading:boolean;
    success:boolean;
+   error:string | null;
 }
 
 export const useSigninForm = ():UseSigninForm =>{
@@ -25,11 +25,16 @@ export const useSigninForm = ():UseSigninForm =>{
         password:formData.password,
         redirect:false
       });
+
+
       if(!result.ok){
         setError(result.error);
       }
 
-      window.location.reload();
+      if(result.ok){
+        window.location.reload();
+      }
+
     } catch (err: any) {
       setError(err.message || "Une erreur inattendue s'est produite.");
     } finally {

@@ -1,36 +1,42 @@
 import { User } from "@prisma/client";
 import { UserInput } from "@/typings";
-import { Context,getContext } from "../context";
+import { Context, getContext } from "../context";
 
-const ctx:Context = getContext();
+const ctx: Context = getContext();
 
-export async function save(data:UserInput):Promise<User>{
+export async function save(data: UserInput): Promise<User> {
   return ctx.prisma.user.create({
     data
   })
 }
 
-export async function findUserById(userId:number):Promise<User | null>{
+export async function findUserById(userId: number): Promise<User | null> {
   return ctx.prisma.user.findUnique({
-    where:{ id : userId }
+    where: { id: userId }
   })
 }
 
-export async function update(data:UserInput,userId:number):Promise<User>{
+export async function update(data: UserInput, userId: number): Promise<User> {
   return ctx.prisma.user.update({
-    where:{id:userId},
+    where: { id: userId },
     data
   })
 }
 
-export async function deleteByUserId(userId:number):Promise<User>{
+export async function deleteByUserId(userId: number): Promise<User> {
   return ctx.prisma.user.delete({
-    where:{ id : userId}
+    where: { id: userId }
   })
 }
 
-export async function findUnique(data:any):Promise<User | null>{
+export async function findUnique(data: any): Promise<User | null> {
   return ctx.prisma.user.findUnique({
-    where:data
+    where: data
+  })
+}
+
+export async function findMany(data: any): Promise<User[] | null> {
+  return ctx.prisma.user.findMany({
+    where: data,
   })
 }

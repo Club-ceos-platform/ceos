@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   if (token) {
     if (isAuthRoute) {
       if (user.role === "ADMIN") {
-        return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
+        return NextResponse.redirect(new URL("/admin/home", request.nextUrl));
       } else if (user.role === "MEMBER") {
         return NextResponse.redirect(new URL("/member", request.nextUrl));
       }

@@ -18,7 +18,7 @@ const SigninForm = () => {
         severity: "error",
         summary: "Erreur",
         detail: error,
-        life: 5000,
+        life: 3000,
       });
     }
   }, [error]);
