@@ -14,12 +14,17 @@
 }
 
 body {
-    /* @apply bg-slate-100; */
-    font-family: system-ui;
+    @apply bg-slate-100;
+    /* font-family: "Poppins", serif; */
+}
+
+.navbar {
+    @apply min-w-48 w-72 text-left h-full bg-white shadow-md rounded-md;
+    @apply p-4;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   }
 
 .p-field{
